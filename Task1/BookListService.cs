@@ -22,17 +22,30 @@ namespace Task1
 
         public void AddBook(Book book)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(book, null))
+                throw new ArgumentNullException();
+
+            if (list.Contains(book))
+                throw new BookListException($"An error occured during adding {nameof(book)} from the book list, {nameof(book)} already exist in the list.");
+            list.Add(book);
+
         }
 
         public void RemoveBook(Book book)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(book, null))
+                throw new ArgumentNullException();
+
+            if (!list.Remove(book))
+                throw new BookListException($"An error occured during removing {nameof(book)} from the book list.");
         }
 
         public Book FindBookByTag(Predicate<Book> predicate)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(predicate, null))
+                throw new ArgumentNullException();
+
+            return (Book)list.Find(predicate).Clone();
         }
 
         public void SortBookListByTag(IComparer<Book> comparer)
