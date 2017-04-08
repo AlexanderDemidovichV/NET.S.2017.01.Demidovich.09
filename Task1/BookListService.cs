@@ -10,7 +10,7 @@ namespace Task1
     class BookListService
     {
         private ILogger logger;
-        private IList<Book> list;
+        private List<Book> list;
 
         public BookListService(ILogger logger)
         {
@@ -35,9 +35,20 @@ namespace Task1
             throw new NotImplementedException();
         }
 
-        public void SortBooksByTag(IComparer<Book> comparer)
+        public void SortBookListByTag(IComparer<Book> comparer)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(comparer, null))
+                throw new ArgumentNullException();
+
+            list.Sort(comparer);
+        }
+
+        public void SortBookListByTag(Comparison<Book> comparison)
+        {
+            if (ReferenceEquals(comparison, null))
+                throw new ArgumentNullException();
+
+            list.Sort(Comparer<Book>.Create(comparison));
         }
 
         public void StoreBooksList(IBookListStorage storage)
@@ -48,27 +59,31 @@ namespace Task1
             {
                 storage.StoreBookList(list);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw;
+                throw new BookListException($"An error has occurred during saving book's list to {nameof(storage)}.", ex);
             }
         }
 
         public void LoadBooksList(IBookListStorage storage)
         {
             if (ReferenceEquals(storage, null))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException($"{nameof(storage)} is null");
+
             IEnumerable<Book> loadedBooks;
+
             try
             {
                 loadedBooks = storage.LoadBookList();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw;
+                throw new BookListException($"An error has occurred during loading book's list from {nameof(storage)}.", ex);
             }
+
             if (ReferenceEquals(loadedBooks, null))
-                throw new NotImplementedException();
+                throw new BookListException($"{nameof(LoadBooksList)} returned null.");
+
             list = (List<Book>)loadedBooks;
         }
     }
