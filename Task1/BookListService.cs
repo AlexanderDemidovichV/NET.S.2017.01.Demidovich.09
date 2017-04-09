@@ -9,13 +9,15 @@ namespace Task1
 {
     class BookListService
     {
-        private ILogger logger;
+        private readonly ILogger logger;
         private List<Book> list;
 
         public BookListService(ILogger logger)
         {
             if(ReferenceEquals(logger, null))
                 throw new ArgumentNullException();
+
+
             this.logger = logger;
             list = new List<Book>();
         }
