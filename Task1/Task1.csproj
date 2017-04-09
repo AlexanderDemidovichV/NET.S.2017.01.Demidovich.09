@@ -40,10 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinaryBookListStorage.cs" />
     <Compile Include="Book.cs" />
     <Compile Include="BookListException.cs" />
     <Compile Include="BookListService.cs" />
-    <Compile Include="BookListStorage.cs" />
     <Compile Include="BookListStorageException.cs" />
     <Compile Include="IBookListStorage.cs" />
     <Compile Include="ILogger.cs" />
