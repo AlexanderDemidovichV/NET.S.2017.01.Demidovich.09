@@ -10,6 +10,8 @@ namespace Task1
 {
     public class Book: ICloneable, IFormattable, IEquatable<Book>, IComparable, IComparable<Book>
     {
+        #region Constructors
+
         public Book(string name, string author, short year, decimal price)
         {
             Author = author;
@@ -21,29 +23,53 @@ namespace Task1
         public Book(): this(string.Empty, string.Empty, default(short), default(decimal))
         { }
 
-        public string Author { get; set; }
+        #endregion
 
-        public string Name { get; set; }
+        #region Properties
 
-        public short Year { get; set; }
+        public string Author { get; }
 
-        public decimal Price { get; set; }
+        public string Name { get; }
 
-        public object Clone()
-        {
-            throw new NotImplementedException();
-        }
+        public short Year { get; }
+
+        public decimal Price { get; }
+
+        #endregion
+
+        #region Public Methods
+
+        public object Clone() => new Book(Name, Author, Year, Price);
 
         public string ToString(string format, IFormatProvider formatProvider = null)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(format))
+                format = "G";
+            if (ReferenceEquals(formatProvider, null))
+                formatProvider = CultureInfo.CurrentCulture;
+
+            switch (format.ToUpperInvariant())
+            {
+                case "G":
+                case "NAYP": return string.Format(formatProvider, "{0}, {1}, {2}, {3:N}", Name, Author, Year, Price);
+                default: throw new FormatException($"The {format} is not supported.");
+            }
         }
 
         public override string ToString() => ToString("G", CultureInfo.CurrentCulture);
 
         public bool Equals(Book other)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(other, null))
+                return false;
+
+            if (ReferenceEquals(other, this))
+                return true;
+
+            if (other.GetType() != this.GetType())
+                return false;
+
+            return Name.Equals(other.Name) && Author.Equals(other.Author) && Year.Equals(other.Year) && Price.Equals(other.Price);
         }
 
         public override bool Equals(object obj)
@@ -53,19 +79,29 @@ namespace Task1
             return this.Equals((Book)obj);
         }
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
+        public override int GetHashCode() => (Name.GetHashCode() + 13) ^ Author.GetHashCode();
 
         int IComparable.CompareTo(object obj)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(obj, null))
+                return 1;
+
+            Book otherBook = obj as Book;
+            if (!ReferenceEquals(otherBook, null))
+                return CompareTo(otherBook);
+
+            throw new ArgumentNullException($"Object is not a {typeof(Book)}");
         }
 
         public int CompareTo(Book other)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(other, null))
+                return 1;
+
+            return Price.CompareTo(other.Price);
         }
+
+        #endregion
+
     }
 }
