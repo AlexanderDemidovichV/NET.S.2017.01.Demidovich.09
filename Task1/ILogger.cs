@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
-    interface ILogger
+    public interface ILogger
     {
     }
 }

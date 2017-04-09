@@ -14,7 +14,7 @@ namespace Task1
 
         public BookListService(ILogger logger)
         {
-            if(!ReferenceEquals(logger, null))
+            if(ReferenceEquals(logger, null))
                 throw new ArgumentNullException();
             this.logger = logger;
             list = new List<Book>();
