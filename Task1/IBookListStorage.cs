@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
-    interface IBookListStorage
+    public interface IBookListStorage
     {
         void StoreBookList(IEnumerable<Book> list);
 

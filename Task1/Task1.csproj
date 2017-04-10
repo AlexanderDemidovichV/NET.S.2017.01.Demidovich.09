@@ -46,8 +46,17 @@
     <Compile Include="BookListService.cs" />
     <Compile Include="BookListStorageException.cs" />
     <Compile Include="IBookListStorage.cs" />
-    <Compile Include="ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Task1.LogAdapter\Task1.LogAdapter.csproj">
+      <Project>{3c7cf8f5-0b10-449d-9904-8be6a056ba47}</Project>
+      <Name>Task1.LogAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Task1.LogProvider\Task1.LogProvider.csproj">
+      <Project>{07cbada1-2986-473e-aa10-459aa173733a}</Project>
+      <Name>Task1.LogProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
