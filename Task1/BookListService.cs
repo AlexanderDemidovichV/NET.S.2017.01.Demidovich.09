@@ -20,11 +20,8 @@ namespace Task1
             if (ReferenceEquals(logger, null))
                 logger = LogProvider.NLogProvider.GetLogger(nameof(BookListService));
 
-            if (ReferenceEquals(logger, null))
-                throw new ArgumentNullException($"{nameof(logger)} is null.");
-
             logger.Debug("Constructor {0} with one parameter is started.", nameof(BookListService));
-
+            this.logger = logger;
             list = new List<Book>();
         }
 

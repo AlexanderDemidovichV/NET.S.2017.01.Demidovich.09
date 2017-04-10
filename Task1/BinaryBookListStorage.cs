@@ -15,10 +15,8 @@ namespace Task1
             if (ReferenceEquals(logger, null))
                 logger = LogProvider.NLogProvider.GetLogger(nameof(BinaryBookListStorage));
 
-            if (ReferenceEquals(logger, null))
-                throw new ArgumentNullException($"{nameof(logger)} is null.");
-
             logger.Debug("{0} constructor is started.", this);
+            this.logger = logger;
             this.fileName = fileName;
         }
 
