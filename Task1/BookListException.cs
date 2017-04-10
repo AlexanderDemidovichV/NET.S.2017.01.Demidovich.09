@@ -11,8 +11,6 @@ namespace Task1
     [Serializable]
     public class BookListException : Exception
     {
-        public string ResourceReferenceProperty { get; set; }
-
         public BookListException()
         {
         }
@@ -28,16 +26,7 @@ namespace Task1
         protected BookListException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            ResourceReferenceProperty = info.GetString("ResourceReferenceProperty");
         }
 
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (ReferenceEquals(info, null))
-                throw new ArgumentNullException("info");
-            info.AddValue("ResourceReferenceProperty", ResourceReferenceProperty);
-            base.GetObjectData(info, context);
-        }
     }
 }

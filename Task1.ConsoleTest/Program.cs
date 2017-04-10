@@ -16,18 +16,19 @@ namespace Task1.ConsoleTest
             {
                 AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
                 var bookService = new BookListService(logger);
+                //bookService.AddBook(new Book("Dark Tower", "King", 1999, 30));
+                //bookService.StoreBooksList(new BinaryBookListStorage("binaryStore", logger));
                 bookService.LoadBooksList(new BinaryBookListStorage("binaryStore", logger));
                 foreach (var book in bookService.GetListOfBooks())
                 {
                     Console.WriteLine(book.ToString());
                 }
 
-                //bookService.AddBook(new Book("Dark Tower", "King", 1999, 30));
-                //bookService.StoreBooksList(new BinaryBookListStorage("binaryStore", logger));
+
             }
-            catch (Exception ex)
+            catch (BookListException ex)
             {
-                
+                logger.Warn("An error occured during removing or saving in BookListService.", ex.InnerException);
             }
         }
 
