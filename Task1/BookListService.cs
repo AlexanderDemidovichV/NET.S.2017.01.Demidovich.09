@@ -4,11 +4,17 @@ using Task1.LogAdapter;
 
 namespace Task1
 {
+    /// <summary>
+    /// Provides functionality to work with a list of books
+    /// </summary>
     public class BookListService
     {
         private readonly ILogger logger;
         private List<Book> list;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="BookListService"/> class
+        /// </summary>
         public BookListService(ILogger logger)
         {
             if (ReferenceEquals(logger, null))
@@ -17,7 +23,7 @@ namespace Task1
             if (ReferenceEquals(logger, null))
                 throw new ArgumentNullException($"{nameof(logger)} is null.");
 
-            logger.Debug(($"Constructor {nameof(BookListService)} with one parameter is started."));
+            logger.Debug("Constructor {0} with one parameter is started.", nameof(BookListService));
 
             list = new List<Book>();
         }
@@ -30,17 +36,26 @@ namespace Task1
             if (ReferenceEquals(logger, null))
                 logger = LogProvider.NLogProvider.GetLogger(nameof(BookListService));
 
-            logger.Debug(($"Constructor {nameof(BookListService)} with two parameters is started."));
+            logger.Debug("Constructor {0} with two parameters is started.", nameof(BookListService));
 
             this.list = new List<Book>(list);
         }
 
+        /// <summary>
+        /// Returns an enumeration of <see cref="Book"/>s in service
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Book> GetListOfBooks()
         {
             logger.Debug("Returning enumeration of books.");
             return list.ToArray();
         }
 
+        /// <summary>
+        /// Adds a book to the book list
+        /// </summary>
+        /// <exception cref="BookListException">Throws if <paramref name="book"/> is already in
+        /// the book list</exception>
         public void AddBook(Book book)
         {
             if (ReferenceEquals(book, null))
@@ -57,6 +72,10 @@ namespace Task1
 
         }
 
+        /// <summary>
+        /// Removes a book from the book list
+        /// </summary>
+        /// <exception cref="BookListException">Throws if the book is already removed</exception>
         public void RemoveBook(Book book)
         {
             if (ReferenceEquals(book, null))
@@ -70,6 +89,12 @@ namespace Task1
             }
         }
 
+        /// <summary>
+        /// Finds a book that gives true from <paramref name="predicate"/>.
+        /// Do not change the instance by returned reference!
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Throws if <paramref name="predicate"/>
+        /// is null</exception>
         public Book FindBookByTag(Predicate<Book> predicate)
         {
             if (ReferenceEquals(predicate, null))
@@ -79,6 +104,12 @@ namespace Task1
             return (Book)list.Find(predicate).Clone();
         }
 
+
+        /// <summary>
+        /// Sorts books in the book list according to <paramref name="comparer"/>
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Throws if <paramref name="comparer"/>
+        /// is null</exception>
         public void SortBookListByTag(IComparer<Book> comparer)
         {
             if (ReferenceEquals(comparer, null))
@@ -88,6 +119,11 @@ namespace Task1
             list.Sort(comparer);
         }
 
+        /// <summary>
+        /// Sorts books in the book list according to <paramref name="comparison"/>
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Throws if <paramref name="comparison"/>
+        /// is null</exception>
         public void SortBookListByTag(Comparison<Book> comparison)
         {
             if (ReferenceEquals(comparison, null))
@@ -97,6 +133,13 @@ namespace Task1
             list.Sort(Comparer<Book>.Create(comparison));
         }
 
+        /// <summary>
+        /// Stores books to <paramref name="storage"/>
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Throws if <paramref name="storage"/>
+        ///  is null</exception>
+        /// <exception cref="BookListException">Throws if some errors while storing books
+        /// if <paramref name="storage"/></exception>
         public void StoreBooksList(IBookListStorage storage)
         {
             if (ReferenceEquals(storage, null))
@@ -108,11 +151,18 @@ namespace Task1
             }
             catch (Exception ex)
             {
-                logger.Warn("An error has occurred during saving book's list to storage.", ex);
+                logger.Warn(ex, "An error has occurred during saving book's list to storage.");
                 throw new BookListException($"An error has occurred during saving book's list to {nameof(storage)}.", ex);
             }
         }
 
+        /// <summary>
+        /// Loads books from <paramref name="storage"/>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Throws if <paramref name="storage"/>
+        /// is null</exception>
+        /// <exception cref="BookListException">Throws if some errors while
+        /// loading books from <paramref name="storage"/></exception>
         public void LoadBooksList(IBookListStorage storage)
         {
             if (ReferenceEquals(storage, null))
@@ -127,7 +177,7 @@ namespace Task1
             }
             catch (Exception ex)
             {
-                logger.Warn("An error has occurred during loading book's list from {1}: {0}.", ex, storage);
+                logger.Warn(ex, "An error has occurred during loading book's list from {0}.", nameof(storage));
                 throw new BookListException($"An error has occurred during loading book's list from {nameof(storage)}.", ex);
             }
 

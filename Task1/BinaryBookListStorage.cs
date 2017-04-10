@@ -32,18 +32,18 @@ namespace Task1
                 using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
                     using (var reader = new BinaryReader(fs))
                     {
-                        logger.Debug("File {0} is opened, starting reading...", fileName);
+                        logger.Debug("File {0} is opened, starting reading...", nameof(fileName));
                         while (reader.PeekChar() > -1)
                         {
                             list.Add(new Book(reader.ReadString(), reader.ReadString(), reader.ReadInt16(),
                                 reader.ReadDecimal()));
                         }
-                        logger.Debug("Books from binary storage {0} added to {1}", fileName, list);
+                        logger.Debug("Books from binary storage {0} added to {1}", nameof(fileName), nameof(list));
                     }
             }
             catch (Exception ex)
             {
-                logger.Warn("An error occured during reading data from the {1}: {0}", ex, fileName);
+                logger.Warn(ex, "An error occured during reading data from the {1}: {0}", nameof(fileName));
                 throw new BookListStorageException($"An error occured during reading data from the {nameof(fileName)}", ex);
             }
             return list;

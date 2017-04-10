@@ -8,10 +8,17 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
+    /// <summary>
+    /// Represents behavior of a book
+    /// </summary>
     public class Book: ICloneable, IFormattable, IEquatable<Book>, IComparable, IComparable<Book>
     {
         #region Constructors
 
+        /// <summary>
+        /// Constructs a book
+        /// </summary>
+        /// <exception cref="ArgumentException">Throws if one of the parameters is invalid</exception>
         public Book(string name, string author, short year, decimal price)
         {
             Author = author;
@@ -20,6 +27,10 @@ namespace Task1
             Price = price;
         }
 
+        /// <summary>
+        /// Constructs a book
+        /// </summary>
+        /// <exception cref="ArgumentException">Throws if one of the parameters is invalid</exception>
         public Book(): this(string.Empty, string.Empty, default(short), default(decimal))
         { }
 
@@ -81,6 +92,13 @@ namespace Task1
 
         public override int GetHashCode() => (Name.GetHashCode() + 13) ^ Author.GetHashCode();
 
+        /// <summary>
+        /// Uses <see cref="CompareTo"/>
+        /// </summary>
+        /// <exception cref="ArgumentException">Throws if 
+        /// <paramref name="obj"/> cannot be casted to <see cref="Book"/></exception>
+        /// <exception cref="ArgumentException">Throws if <paramref name="obj"/> is
+        /// not a type of <see cref="Book"/></exception>
         int IComparable.CompareTo(object obj)
         {
             if (ReferenceEquals(obj, null))
@@ -93,6 +111,11 @@ namespace Task1
             throw new ArgumentNullException($"Object is not a {typeof(Book)}");
         }
 
+        /// <summary>
+        /// Compare books by <see cref="Name"/>, if equals then by 
+        /// <see cref="Author"/>, if equals then by <see cref="Year"/>,
+        /// if equals then by <see cref="Price"/>.
+        /// </summary>
         public int CompareTo(Book other)
         {
             if (ReferenceEquals(other, null))
