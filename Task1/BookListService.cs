@@ -118,7 +118,7 @@ namespace Task1
             if (ReferenceEquals(storage, null))
                 throw new ArgumentNullException($"{nameof(storage)} is null");
 
-            logger.Debug("Loading book list from {0}", storage);
+            logger.Debug("Loading book list from {0}", nameof(storage));
             IEnumerable<Book> loadedBooks;
 
             try
