@@ -16,8 +16,8 @@ namespace Task1.ConsoleTest
             {
                 AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
                 var bookService = new BookListService(logger);
-                bookService.AddBook(new Book("Dark Tower", "King", 1999, 30));
-                bookService.StoreBooksList(new BinaryBookListStorage("binaryStore", logger));
+                //bookService.AddBook(new Book("Dark Tower", "King", 1999, 30));
+                //bookService.StoreBooksList(new BinaryBookListStorage("binaryStore", logger));
 
                 var binaryBookListStorage = new BinaryBookListStorage("binaryStore", logger);
                 bookService.LoadBooksList(binaryBookListStorage);
