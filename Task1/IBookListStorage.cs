@@ -8,18 +8,18 @@ using Task1.LogAdapter;
 namespace Task1
 {
     /// <summary>
-    /// Interface of abstract <see cref="Book"/> storage
+    /// Interface of abstract <see cref="Book"/> storage.
     /// </summary>
     public interface IBookListStorage
     {
         /// <summary>
-        /// Stores <paramref name="books"/> somewhere
+        /// Stores <paramref name="list"/>.
         /// </summary>
         void StoreBookList(IEnumerable<Book> list);
 
         /// <summary>
-        /// Loads <see cref="Book"/>s enumerable from somewhere
+        /// Loads <see cref="Book"/>s list.
         /// </summary>  
-        IEnumerable<Book> LoadBookList();
+        List<Book> LoadBookList();
     }
 }

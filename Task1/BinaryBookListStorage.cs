@@ -20,7 +20,7 @@ namespace Task1
             this.fileName = fileName;
         }
 
-        public IEnumerable<Book> LoadBookList()
+        public List<Book> LoadBookList()
         {
             logger.Debug("Loading from binary storage {0} is started.", fileName);
             var list = new List<Book>();

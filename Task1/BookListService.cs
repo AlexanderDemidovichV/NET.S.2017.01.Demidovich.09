@@ -25,6 +25,9 @@ namespace Task1
             list = new List<Book>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="BookListService"/> class
+        /// </summary>
         public BookListService(ILogger logger, IEnumerable<Book> list)
         {
             if (ReferenceEquals(list, null))
