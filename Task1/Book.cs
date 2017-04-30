@@ -11,6 +11,7 @@ namespace Task1
     /// <summary>
     /// Represents behavior of a book
     /// </summary>
+    [Serializable]
     public class Book: ICloneable, IFormattable, IEquatable<Book>, IComparable, IComparable<Book>
     {
         #region Constructors
