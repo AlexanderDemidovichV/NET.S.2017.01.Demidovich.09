@@ -48,6 +48,7 @@
     <Compile Include="BookListStorageException.cs" />
     <Compile Include="IBookListStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XMLBookListStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Task1.LogAdapter\Task1.LogAdapter.csproj">

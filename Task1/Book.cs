@@ -14,6 +14,9 @@ namespace Task1
     [Serializable]
     public class Book: ICloneable, IFormattable, IEquatable<Book>, IComparable, IComparable<Book>
     {
+
+        public const string xmlName = "book";
+
         #region Constructors
 
         /// <summary>
